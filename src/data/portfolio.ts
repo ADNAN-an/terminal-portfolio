@@ -20,8 +20,8 @@ export const portfolioData: PortfolioData = {
 
   projects: [
     {
-      name: "TaskFlow Pro",
-      description: "A comprehensive project management platform with real-time collaboration, built with React, Node.js, and WebSocket technology.",
+      name: "DonorNation",
+      description: "end-of-year project from my 3rd year of Software Engineering. DonorNation, is a blood donation platform..",
       tech: ["React", "Node.js", "PostgreSQL", "Socket.io", "Tailwind CSS"],
       github: "https://github.com/alexthompson/taskflow-pro",
       demo: "https://taskflow-pro.vercel.app"
