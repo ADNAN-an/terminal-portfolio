@@ -21,17 +21,15 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       name: "DonorNation",
-      description: "end-of-year project from my 3rd year of Software Engineering. DonorNation, is a blood donation platform..",
-      tech: ["React", "Node.js", "PostgreSQL", "Socket.io", "Tailwind CSS"],
-      github: "https://github.com/alexthompson/taskflow-pro",
-      demo: "https://taskflow-pro.vercel.app"
+      description: "End-of-year project from my 3rd year of Software Engineering. DonorNation, is a         blood donation platform.",
+      tech: ["Laravel", "PHP", "mySQL", "GMaps API"],
     },
     {
-      name: "AI Content Generator",
-      description: "An intelligent content creation tool powered by OpenAI API, featuring custom templates and workflow automation.",
-      tech: ["Next.js", "OpenAI API", "Prisma", "tRPC", "Stripe"],
-      github: "https://github.com/alexthompson/ai-content-gen",
-      demo: "https://ai-content-gen.com"
+      name: "iElect",
+      description: "A voting platform with MetaMask authentication for secure and transparent      participation in the democratic process.",
+      tech: ["DJANGO", "Python", "TailwindCSS", "PostgreSQL", "MetaMask"],
+      // github: "https://github.com/alexthompson/ai-content-gen",
+      // demo: "https://ai-content-gen.com"
     },
     {
       name: "EcoTracker",
@@ -43,22 +41,22 @@ export const portfolioData: PortfolioData = {
 
   experience: [
     {
-      company: "TechCorp Solutions",
-      position: "Senior Full Stack Developer",
+      company: "",
+      position: "Full Stack Intern",
       duration: "2022 - Present",
       description: "Lead development of enterprise applications serving 100K+ users. Architect scalable systems and mentor junior developers."
     },
     {
-      company: "StartupXYZ",
-      position: "Full Stack Developer",
+      company: "SNRT",
+      position: "Full Stack and data Intern",
       duration: "2020 - 2022",
       description: "Built core product features from scratch, implemented CI/CD pipelines, and improved application performance by 40%."
     },
     {
-      company: "WebAgency Inc",
-      position: "Frontend Developer",
-      duration: "2019 - 2020",
-      description: "Developed responsive websites and web applications for various clients using modern JavaScript frameworks."
+      company: "Tangier Med Zones",
+      position: "Full Stack Intern",
+      duration: "07/2023 - 08/2023",
+      description: "Completed a 1-month internship at TMZ (Tangier Free Zones), which was my first experience in the professional environment."
     }
   ],
 
