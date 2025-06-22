@@ -3,6 +3,7 @@ import { Command } from '../types/terminal';
 import { portfolioData } from '../data/portfolio';
 import { useSoundEffects } from './useSoundEffects';
 import { useGlitch } from './useGlitch';
+import resumePDF from '../data/resume.pdf';
 
 const availableCommands = [
   'help', 'whoami', 'about', 'skills', 'projects', 'experience', 
@@ -45,7 +46,7 @@ Type 'help' to see available commands.
           setIsDownloading(false);
           // Simulate actual download
           const link = document.createElement('a');
-          link.href = 'data:text/plain;charset=utf-8,This would be the actual resume PDF content';
+          link.href = resumePDF;
           link.download = `${portfolioData.name.replace(' ', '_')}_Resume.pdf`;
           link.click();
           return 100;
