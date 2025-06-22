@@ -1,16 +1,22 @@
 import { useState, useEffect } from 'react';
 
-export interface BootState {
+// Separate types for booting and booted states
+export type BootingState = {
   isBooting: true;
-  stage: 'power-on' | 'system-check' | 'loading' | 'complete';
+  stage: 'power-on' | 'system-check' | 'loading';
   currentLine: number;
   showCursor: boolean;
-} | {
+};
+
+export type BootedState = {
   isBooting: false;
   stage: 'complete';
   currentLine: number;
   showCursor: boolean;
-}
+};
+
+// Union type
+export type BootState = BootingState | BootedState;
 
 const bootSequence = [
   { text: "BIOS Version 2.1.4 - Copyright (C) 1985-2024 RetroTech Corp.", delay: 100 },
@@ -48,7 +54,7 @@ export const useBootAnimation = () => {
     const runBootSequence = async () => {
       // Power-on stage
       setBootState(prev => ({ ...prev, stage: 'power-on' }));
-      
+
       // Wait for CRT power-on animation
       await new Promise(resolve => {
         timeouts.push(setTimeout(resolve, 1500));
@@ -56,7 +62,7 @@ export const useBootAnimation = () => {
 
       // System check stage
       setBootState(prev => ({ ...prev, stage: 'system-check' }));
-      
+
       // Wait for flicker effect
       await new Promise(resolve => {
         timeouts.push(setTimeout(resolve, 300));
