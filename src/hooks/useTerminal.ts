@@ -16,10 +16,10 @@ export const useTerminal = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
-  const { playTyping, playCommand, playError } = useSoundEffects();
+  const { playTyping, playCommand, playError, playRetroStartup } = useSoundEffects();
   const { glitchState, triggerCommandGlitch, triggerTypingGlitch } = useGlitch();
 
-  // Welcome message
+  // Welcome message with startup sound
   useEffect(() => {
     const welcomeCommand: Command = {
       command: 'init',
@@ -32,7 +32,12 @@ Type 'help' to see available commands.
       timestamp: new Date()
     };
     setHistory([welcomeCommand]);
-  }, []);
+    
+    // Play startup sound after a brief delay
+    setTimeout(() => {
+      playRetroStartup();
+    }, 500);
+  }, [playRetroStartup]);
 
   const simulateDownload = useCallback(() => {
     setIsDownloading(true);
@@ -225,7 +230,7 @@ Phone: ${portfolioData.phone}`;
 
       case 'clear':
         setHistory([]);
-        playCommand();
+        playCommand('clear');
         triggerCommandGlitch();
         return;
 
@@ -238,7 +243,7 @@ Phone: ${portfolioData.phone}`;
     if (isError) {
       playError();
     } else {
-      playCommand();
+      playCommand(baseCommand);
       triggerCommandGlitch();
     }
 
