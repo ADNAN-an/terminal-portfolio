@@ -5,7 +5,7 @@ export interface BootState {
   stage: 'power-on' | 'system-check' | 'loading' | 'complete';
   currentLine: number;
   showCursor: boolean;
-} | {
+} || {
   isBooting: false;
   stage: 'complete';
   currentLine: number;
