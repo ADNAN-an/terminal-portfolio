@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Command } from '../types/terminal';
 import { portfolioData } from '../data/portfolio';
 import { useSoundEffects } from './useSoundEffects';
+import { useGlitch } from './useGlitch';
 
 const availableCommands = [
   'help', 'whoami', 'about', 'skills', 'projects', 'experience', 
@@ -16,6 +17,7 @@ export const useTerminal = () => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const { playTyping, playCommand, playError } = useSoundEffects();
+  const { glitchState, triggerCommandGlitch, triggerTypingGlitch } = useGlitch();
 
   // Welcome message
   useEffect(() => {
@@ -224,6 +226,7 @@ Phone: ${portfolioData.phone}`;
       case 'clear':
         setHistory([]);
         playCommand();
+        triggerCommandGlitch();
         return;
 
       default:
@@ -231,11 +234,12 @@ Phone: ${portfolioData.phone}`;
         isError = true;
     }
 
-    // Play appropriate sound effect
+    // Play appropriate sound effect and trigger glitch
     if (isError) {
       playError();
     } else {
       playCommand();
+      triggerCommandGlitch();
     }
 
     const newCommand: Command = {
@@ -245,12 +249,13 @@ Phone: ${portfolioData.phone}`;
     };
 
     setHistory(prev => [...prev, newCommand]);
-  }, [simulateDownload, playCommand, playError]);
+  }, [simulateDownload, playCommand, playError, triggerCommandGlitch]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    // Play typing sound for regular keys
+    // Play typing sound and trigger glitch for regular keys
     if (e.key.length === 1 || e.key === 'Backspace') {
       playTyping();
+      triggerTypingGlitch();
     }
 
     if (e.key === 'Enter') {
@@ -298,6 +303,7 @@ Phone: ${portfolioData.phone}`;
     isTyping,
     processCommand,
     isDownloading,
-    downloadProgress
+    downloadProgress,
+    glitchState
   };
 };

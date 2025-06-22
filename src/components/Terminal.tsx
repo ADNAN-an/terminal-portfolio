@@ -13,7 +13,8 @@ const Terminal: React.FC = () => {
     handleKeyDown, 
     isTyping, 
     isDownloading, 
-    downloadProgress 
+    downloadProgress,
+    glitchState
   } = useTerminal();
   const { themeColors } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -48,14 +49,27 @@ const Terminal: React.FC = () => {
     return output;
   };
 
+  // Build dynamic classes for glitch effects
+  const getGlitchClasses = () => {
+    const classes = [];
+    if (glitchState.isGlitching) classes.push('glitch-active');
+    if (glitchState.isFlickering) classes.push('flicker-active');
+    if (glitchState.hasLineGlitch) classes.push('glitch-lines');
+    return classes.join(' ');
+  };
+
+  const getTextGlitchClasses = () => {
+    return glitchState.hasTextGlitch ? 'glitch-text' : '';
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 p-4 font-mono">
-      <div className={`max-w-4xl mx-auto h-screen max-h-[90vh] bg-black/90 backdrop-blur-sm rounded-lg border ${themeColors.border} shadow-2xl ${themeColors.glow} overflow-hidden`}>
+      <div className={`max-w-4xl mx-auto h-screen max-h-[90vh] bg-black/90 backdrop-blur-sm rounded-lg border ${themeColors.border} shadow-2xl ${themeColors.glow} overflow-hidden ${getGlitchClasses()}`}>
         {/* Terminal Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-gray-800/50 border-b border-gray-700/50">
           <div className="flex items-center space-x-2">
             <TerminalIcon className={`w-5 h-5 ${themeColors.primary}`} />
-            <span className={`${themeColors.primary} font-semibold`}>portfolio@terminal</span>
+            <span className={`${themeColors.primary} font-semibold ${getTextGlitchClasses()}`}>portfolio@terminal</span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -67,7 +81,7 @@ const Terminal: React.FC = () => {
         {/* Terminal Content */}
         <div
           ref={terminalRef}
-          className="h-full p-4 overflow-y-auto bg-black/95 cursor-text relative"
+          className={`h-full p-4 overflow-y-auto bg-black/95 cursor-text relative scanlines ${getGlitchClasses()}`}
           onClick={handleTerminalClick}
           style={{
             backgroundImage: `
@@ -86,7 +100,7 @@ const Terminal: React.FC = () => {
           {history.map((command, index) => (
             <div key={index} className="mb-4">
               {command.command !== 'init' && (
-                <div className={`flex items-center ${themeColors.primary} mb-2`}>
+                <div className={`flex items-center ${themeColors.primary} mb-2 ${getTextGlitchClasses()}`}>
                   <User className="w-4 h-4 mr-2" />
                   <span className={themeColors.secondary}>{portfolioData.name.toLowerCase().replace(' ', '')}@portfolio</span>
                   <span className="text-white mx-1">:</span>
@@ -95,7 +109,7 @@ const Terminal: React.FC = () => {
                   <span className="text-white">{command.command}</span>
                 </div>
               )}
-              <div className={`${themeColors.text} leading-relaxed pl-6`}>
+              <div className={`${themeColors.text} leading-relaxed pl-6 ${getTextGlitchClasses()}`}>
                 {formatOutput(command.output)}
               </div>
             </div>
@@ -109,7 +123,7 @@ const Terminal: React.FC = () => {
           )}
 
           {/* Current Input Line */}
-          <div className={`flex items-center ${themeColors.primary}`}>
+          <div className={`flex items-center ${themeColors.primary} ${getTextGlitchClasses()}`}>
             <User className="w-4 h-4 mr-2" />
             <span className={themeColors.secondary}>{portfolioData.name.toLowerCase().replace(' ', '')}@portfolio</span>
             <span className="text-white mx-1">:</span>
@@ -121,17 +135,17 @@ const Terminal: React.FC = () => {
               value={currentInput}
               onChange={(e) => setCurrentInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              className={`flex-1 bg-transparent text-white outline-none caret-${themeColors.primary.split('-')[1]}-400`}
+              className={`flex-1 bg-transparent text-white outline-none caret-${themeColors.primary.split('-')[1]}-400 ${getTextGlitchClasses()}`}
               autoComplete="off"
               spellCheck="false"
             />
-            <span className={`${themeColors.primary} animate-pulse ml-1`}>
+            <span className={`${themeColors.primary} animate-pulse ml-1 ${getTextGlitchClasses()}`}>
               {isTyping ? '⏳' : '█'}
             </span>
           </div>
 
           {/* Hint text */}
-          <div className={`mt-8 ${themeColors.textSecondary} text-sm`}>
+          <div className={`mt-8 ${themeColors.textSecondary} text-sm ${getTextGlitchClasses()}`}>
             <p>💡 Tip: Use Tab for auto-completion, ↑↓ for command history</p>
             <p>🚀 Try commands: whoami, skills, projects, theme, help</p>
             <p>🎨 Change themes: theme blue | theme amber | theme purple | theme red</p>

@@ -1,3 +1,167 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Glitch Effects */
+@keyframes glitch-text {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  10% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  20% {
+    transform: translate(-1px, -1px);
+    filter: hue-rotate(180deg);
+  }
+  30% {
+    transform: translate(1px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  40% {
+    transform: translate(1px, -1px);
+    filter: hue-rotate(360deg);
+  }
+  50% {
+    transform: translate(-1px, 2px);
+    filter: hue-rotate(45deg);
+  }
+  60% {
+    transform: translate(-1px, 1px);
+    filter: hue-rotate(135deg);
+  }
+  70% {
+    transform: translate(2px, 1px);
+    filter: hue-rotate(225deg);
+  }
+  80% {
+    transform: translate(-2px, -1px);
+    filter: hue-rotate(315deg);
+  }
+  90% {
+    transform: translate(1px, 2px);
+    filter: hue-rotate(180deg);
+  }
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes glitch-screen {
+  0% {
+    transform: translate(0);
+    opacity: 1;
+  }
+  10% {
+    transform: translate(-1px, 0);
+    opacity: 0.9;
+  }
+  20% {
+    transform: translate(1px, 0);
+    opacity: 0.95;
+  }
+  30% {
+    transform: translate(0, -1px);
+    opacity: 0.85;
+  }
+  40% {
+    transform: translate(0, 1px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-1px, -1px);
+    opacity: 0.95;
+  }
+  60% {
+    transform: translate(1px, 1px);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translate(0, -1px);
+    opacity: 0.85;
+  }
+  80% {
+    transform: translate(-1px, 0);
+    opacity: 0.95;
+  }
+  90% {
+    transform: translate(1px, 0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glitch-lines {
+  0% {
+    background-position: 0 0;
+  }
+  25% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0 100%;
+  }
+  75% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.glitch-active {
+  animation: glitch-screen 0.1s ease-in-out;
+}
+
+.glitch-text {
+  animation: glitch-text 0.15s ease-in-out;
+}
+
+.glitch-lines {
+  animation: glitch-lines 0.2s ease-in-out;
+}
+
+.flicker-active {
+  animation: flicker 0.05s ease-in-out;
+}
+
+/* Scanline effect enhancement */
+.scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 50%, 
+    rgba(0, 255, 65, 0.03) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scanlines 0.1s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 4px;
+  }
+}
