@@ -2,69 +2,92 @@ import { PortfolioData } from '../types/terminal';
 
 export const portfolioData: PortfolioData = {
   name: "Adnan Anjar",
-  title: "Full Stack Developer",
+  title: "Software Engineering Student | Full Stack Developer",
   email: "adnan.anjar2002@gmail.com",
   phone: "+212 649819318",
-  location: "Tangier, MA",
-  website: "https://alexthompson.dev",
+  location: "Tangier, Morocco",
+  website: "https://adnan-anjar.dev", // Update with your actual domain
   github: "https://github.com/ADNAN-an",
   linkedin: "https://linkedin.com/in/adnan-anjar",
-  bio: "Passionate full-stack developer with 5+ years of experience building scalable web applications. I love creating beautiful, functional software that solves real-world problems.",
+  bio: "5th-year Software Engineering student specializing in full-stack development, data analysis, and data science. Seeking final year internship (PFE) opportunities to apply technical skills in challenging, innovative projects with significant technical and operational impact.",
   
   skills: {
-    languages: ["JavaScript", "TypeScript", "Python", "Java", "Go", "Rust"],
-    frameworks: ["React", "Next.js", "Node.js", "Express", "Django", "FastAPI"],
-    tools: ["Git", "Docker", "AWS", "Vercel", "Figma", "VS Code"],
-    databases: ["PostgreSQL", "MongoDB", "Redis", "MySQL", "Firebase"]
+    languages: ["JavaScript", "TypeScript", "Python", "Java", "PHP", "C/C++", "C#", "R"],
+    frameworks: ["React", "Next.js", "Angular", "Django", "Laravel", "Spring Boot", ".NET", "React Native", "Flutter"],
+    tools: ["Git", "Docker", "Kubernetes", "Jenkins", "Azure", "Power BI", "Tableau", "Hadoop", "Spark", "Jira", "Trello", "Odoo"],
+    databases: ["MySQL", "PostgreSQL", "MongoDB", "Oracle DB", "SQL Server", "Neo4j", "Supabase"]
   },
 
   projects: [
     {
-      name: "DonorNation",
-      description: "End-of-year project from my 3rd year of Software Engineering. DonorNation, is a         blood donation platform.",
-      tech: ["Laravel", "PHP", "mySQL", "GMaps API"],
+      name: "Okiru",
+      description: "Collaboration platform connecting startups with freelancers, featuring modern full-stack architecture and real-time communication capabilities.",
+      tech: ["TypeScript", "Next.js", "Prisma", "Supabase"],
+      github: "https://github.com/ADNAN-an/okiru" // Add if available
     },
     {
       name: "iElect",
-      description: "A voting platform with MetaMask authentication for secure and transparent      participation in the democratic process.",
-      tech: ["DJANGO", "Python", "TailwindCSS", "PostgreSQL", "MetaMask"],
-      // github: "https://github.com/alexthompson/ai-content-gen",
-      // demo: "https://ai-content-gen.com"
+      description: "Blockchain-based voting platform with MetaMask authentication ensuring secure and transparent democratic participation through decentralized technology.",
+      tech: ["Django", "Python", "PostgreSQL", "MetaMask", "Web3"],
+      github: "https://github.com/ADNAN-an/ielect" // Add if available
     },
     {
-      name: "EcoTracker",
-      description: "Mobile-first web app for tracking personal carbon footprint with gamification elements and social features.",
-      tech: ["React Native", "Firebase", "Chart.js", "PWA"],
-      github: "https://github.com/alexthompson/eco-tracker"
+      name: "DonorNation",
+      description: "Blood donation management platform connecting donors with healthcare facilities, featuring location-based matching and appointment scheduling.",
+      tech: ["Laravel", "PHP", "MySQL", "Google Maps API"],
+      github: "https://github.com/ADNAN-an/donornation" // Add if available
+    },
+    {
+      name: "SNRT Data Collection System",
+      description: "Enterprise data aggregation system with comprehensive back-office dashboard for SNRT applications, enabling real-time monitoring and analytics.",
+      tech: ["Spring Boot", "Angular", "Power BI", "Java"],
     }
   ],
 
   experience: [
     {
-      company: "",
-      position: "Full Stack Intern",
-      duration: "2022 - Present",
-      description: "Lead development of enterprise applications serving 100K+ users. Architect scalable systems and mentor junior developers."
+      company: "SNRT (Société Nationale de Radiodiffusion et de Télévision)",
+      position: "Full Stack Development Intern",
+      duration: "Jul 2024 - Sep 2024",
+      description: "Designed and developed a comprehensive data collection system for SNRT applications with integrated back-office dashboard for visualization and management using Spring Boot, Angular, and Power BI for advanced analytics."
     },
     {
-      company: "SNRT",
-      position: "Full Stack and data Intern",
-      duration: "2020 - 2022",
-      description: "Built core product features from scratch, implemented CI/CD pipelines, and improved application performance by 40%."
+      company: "Tanger Med Zones (TMZ)",
+      position: "Software Development Intern",
+      duration: "Jul 2023 - Aug 2023",
+      description: "Built a complete support ticket management application using Laravel and MySQL, implementing user authentication, ticket tracking, and administrative dashboard functionality."
     },
     {
-      company: "Tangier Med Zones",
-      position: "Full Stack Intern",
-      duration: "07/2023 - 08/2023",
-      description: "Completed a 1-month internship at TMZ (Tangier Free Zones), which was my first experience in the professional environment."
+      company: "RMA Insurance Company",
+      position: "Operations Intern",
+      duration: "Aug 2019 - Sep 2019",
+      description: "Managed cash operations, billing processes, and administrative tasks while gaining exposure to enterprise software systems and customer service operations."
     }
   ],
 
   education: [
     {
-      institution: "University of California, Berkeley",
-      degree: "B.S. Computer Science",
-      year: "2019"
+      institution: "École Marocaine des Sciences d'Ingénieurs",
+      degree: "Software Engineering (5th Year)",
+      year: "2024-2025"
+    },
+    {
+      institution: "École Marocaine des Sciences d'Ingénieurs",
+      degree: "Computer Science & Networks Engineering",
+      year: "2020-2024"
+    }
+  ],
+
+  certifications: [
+    {
+      name: "IBM Data Science Professional Certificate",
+      issuer: "IBM",
+      year: "2024"
+    },
+    {
+      name: "Oracle Database Administration (DBA)",
+      issuer: "Oracle",
+      year: "2024"
     }
   ]
 };
