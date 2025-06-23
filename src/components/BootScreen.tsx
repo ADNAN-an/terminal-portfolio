@@ -2,9 +2,9 @@ import React from 'react';
 import { useBootAnimation } from '../hooks/useBootAnimation';
 
 const BootScreen: React.FC = () => {
-  const { bootState, displayedLines } = useBootAnimation();
+  const { bootState, displayedLines, isTransitioning } = useBootAnimation();
 
-  if (!bootState.isBooting) return null;
+  if (!bootState.isBooting && !isTransitioning) return null;
 
   const getStageClasses = () => {
     switch (bootState.stage) {
@@ -20,9 +20,13 @@ const BootScreen: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+    <div className={`fixed inset-0 z-50 bg-black flex items-center justify-center transition-all duration-1000 ${
+      isTransitioning ? 'terminal-transition' : ''
+    }`}>
       {/* CRT Monitor Frame */}
-      <div className="relative">
+      <div className={`relative transition-all duration-1000 ${
+        isTransitioning ? 'scale-110 opacity-0' : 'scale-100 opacity-100'
+      }`}>
         {/* Monitor Bezel */}
         <div className="bg-gray-800 p-8 rounded-3xl shadow-2xl">
           <div className="bg-gray-900 p-4 rounded-2xl">
@@ -31,6 +35,7 @@ const BootScreen: React.FC = () => {
               className={`
                 w-[800px] h-[600px] bg-black rounded-lg relative overflow-hidden
                 border-2 border-gray-700 ${getStageClasses()}
+                ${isTransitioning ? 'terminal-opening' : ''}
               `}
             >
               {/* Static noise overlay for power-on */}
@@ -43,7 +48,9 @@ const BootScreen: React.FC = () => {
 
               {/* Boot content */}
               {bootState.stage !== 'power-on' && (
-                <div className="p-8 font-mono text-green-400 text-sm leading-relaxed">
+                <div className={`p-8 font-mono text-green-400 text-sm leading-relaxed transition-all duration-500 ${
+                  isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                }`}>
                   {displayedLines.map((line, index) => (
                     <div 
                       key={index} 
@@ -53,7 +60,9 @@ const BootScreen: React.FC = () => {
                         color: line.includes('████') ? '#00ff41' : 
                                line.includes('OK') ? '#00ff41' :
                                line.includes('Ready') ? '#ffff00' :
-                               line.includes('Welcome') ? '#00ffff' : '#00ff41'
+                               line.includes('Welcome') ? '#00ffff' :
+                               line.includes('Starting') ? '#ff6b35' :
+                               line.includes('Loading user') ? '#ff6b35' : '#00ff41'
                       }}
                     >
                       {line || '\u00A0'}
@@ -61,11 +70,33 @@ const BootScreen: React.FC = () => {
                   ))}
                   
                   {/* Cursor */}
-                  {bootState.stage === 'loading' && (
+                  {bootState.stage === 'loading' && !isTransitioning && (
                     <span className={`cursor-blink ${bootState.showCursor ? 'opacity-100' : 'opacity-0'}`}>
                       █
                     </span>
                   )}
+                </div>
+              )}
+
+              {/* Terminal opening effect overlay */}
+              {isTransitioning && (
+                <div className="absolute inset-0 terminal-opening-overlay">
+                  <div className="terminal-window-frame">
+                    <div className="terminal-title-bar">
+                      <div className="terminal-controls">
+                        <div className="terminal-button terminal-close"></div>
+                        <div className="terminal-button terminal-minimize"></div>
+                        <div className="terminal-button terminal-maximize"></div>
+                      </div>
+                      <div className="terminal-title">Portfolio Terminal</div>
+                    </div>
+                    <div className="terminal-content-preview">
+                      <div className="terminal-prompt-preview">
+                        <span className="text-green-400">$</span>
+                        <span className="terminal-cursor-preview">█</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -77,19 +108,27 @@ const BootScreen: React.FC = () => {
           {/* Monitor controls */}
           <div className="flex justify-center mt-4 space-x-4">
             <div className="w-3 h-3 bg-red-500 rounded-full shadow-lg"></div>
-            <div className="w-3 h-3 bg-green-500 rounded-full shadow-lg animate-pulse"></div>
+            <div className={`w-3 h-3 rounded-full shadow-lg transition-all duration-300 ${
+              isTransitioning ? 'bg-yellow-500' : 'bg-green-500 animate-pulse'
+            }`}></div>
             <div className="w-8 h-3 bg-gray-600 rounded-full"></div>
           </div>
         </div>
 
         {/* Power button glow */}
         <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-          <div className="w-4 h-4 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
+          <div className={`w-4 h-4 rounded-full shadow-lg transition-all duration-300 ${
+            isTransitioning ? 'bg-yellow-500 shadow-yellow-500/50' : 'bg-green-500 animate-pulse shadow-green-500/50'
+          }`}></div>
         </div>
       </div>
 
       {/* Ambient lighting */}
-      <div className="absolute inset-0 bg-gradient-radial from-green-900/20 via-transparent to-black pointer-events-none"></div>
+      <div className={`absolute inset-0 pointer-events-none transition-all duration-1000 ${
+        isTransitioning 
+          ? 'bg-gradient-radial from-blue-900/30 via-transparent to-black' 
+          : 'bg-gradient-radial from-green-900/20 via-transparent to-black'
+      }`}></div>
     </div>
   );
 };

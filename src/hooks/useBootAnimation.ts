@@ -36,6 +36,8 @@ const bootSequence = [
   { text: "Initializing Terminal Interface...", delay: 500 },
   { text: "", delay: 200 },
   { text: "Welcome to Portfolio Terminal", delay: 300 },
+  { text: "Starting terminal session...", delay: 400 },
+  { text: "Loading user interface...", delay: 300 },
 ];
 
 export const useBootAnimation = () => {
@@ -47,6 +49,7 @@ export const useBootAnimation = () => {
   });
 
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     let timeouts: NodeJS.Timeout[] = [];
@@ -80,7 +83,12 @@ export const useBootAnimation = () => {
         }, cumulativeDelay));
       });
 
-      // Complete boot sequence
+      // Start transition animation
+      timeouts.push(setTimeout(() => {
+        setIsTransitioning(true);
+      }, cumulativeDelay + 500));
+
+      // Complete boot sequence after transition
       timeouts.push(setTimeout(() => {
         setBootState({
           isBooting: false,
@@ -88,7 +96,7 @@ export const useBootAnimation = () => {
           currentLine: bootSequence.length,
           showCursor: false
         });
-      }, cumulativeDelay + 1000));
+      }, cumulativeDelay + 2000)); // Allow time for transition
     };
 
     runBootSequence();
@@ -107,6 +115,7 @@ export const useBootAnimation = () => {
   return {
     bootState,
     displayedLines,
-    isBootComplete: !bootState.isBooting
+    isBootComplete: !bootState.isBooting,
+    isTransitioning
   };
 };
