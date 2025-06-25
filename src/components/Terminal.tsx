@@ -63,25 +63,25 @@ const Terminal: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 p-4 font-mono">
-      <div className={`max-w-4xl mx-auto h-screen max-h-[90vh] bg-black/90 backdrop-blur-sm rounded-lg border ${themeColors.border} shadow-2xl ${themeColors.glow} overflow-hidden ${getGlitchClasses()}`}>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 p-4 font-mono terminal-entrance">
+      <div className={`max-w-4xl mx-auto h-screen max-h-[90vh] bg-black/90 backdrop-blur-sm rounded-lg border ${themeColors.border} shadow-2xl ${themeColors.glow} overflow-hidden ${getGlitchClasses()} terminal-window`}>
         {/* Terminal Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-gray-800/50 border-b border-gray-700/50">
+        <div className="flex items-center justify-between px-4 py-3 bg-gray-800/50 border-b border-gray-700/50 terminal-header">
           <div className="flex items-center space-x-2">
             <TerminalIcon className={`w-5 h-5 ${themeColors.primary}`} />
             <span className={`${themeColors.primary} font-semibold ${getTextGlitchClasses()}`}>portfolio@terminal</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className="w-3 h-3 rounded-full bg-red-500 terminal-button"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500 terminal-button"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500 terminal-button"></div>
           </div>
         </div>
 
         {/* Terminal Content */}
         <div
           ref={terminalRef}
-          className={`h-full p-4 overflow-y-auto bg-black/95 cursor-text relative scanlines ${getGlitchClasses()}`}
+          className={`h-full p-4 overflow-y-auto bg-black/95 cursor-text relative scanlines ${getGlitchClasses()} terminal-content`}
           onClick={handleTerminalClick}
           style={{
             backgroundImage: `
@@ -98,7 +98,7 @@ const Terminal: React.FC = () => {
 
           {/* Command History */}
           {history.map((command, index) => (
-            <div key={index} className="mb-4">
+            <div key={index} className="mb-4 terminal-line">
               {command.command !== 'init' && (
                 <div className={`flex items-center ${themeColors.primary} mb-2 ${getTextGlitchClasses()}`}>
                   <User className="w-4 h-4 mr-2" />
@@ -123,7 +123,7 @@ const Terminal: React.FC = () => {
           )}
 
           {/* Current Input Line */}
-          <div className={`flex items-center ${themeColors.primary} ${getTextGlitchClasses()}`}>
+          <div className={`flex items-center ${themeColors.primary} ${getTextGlitchClasses()} terminal-input`}>
             <User className="w-4 h-4 mr-2" />
             <span className={themeColors.secondary}>{portfolioData.name.toLowerCase().replace(' ', '')}@portfolio</span>
             <span className="text-white mx-1">:</span>
@@ -145,7 +145,7 @@ const Terminal: React.FC = () => {
           </div>
 
           {/* Hint text */}
-          <div className={`mt-8 ${themeColors.textSecondary} text-sm ${getTextGlitchClasses()}`}>
+          <div className={`mt-8 ${themeColors.textSecondary} text-sm ${getTextGlitchClasses()} terminal-hints`}>
             <p>💡 Tip: Use Tab for auto-completion, ↑↓ for command history</p>
             <p>🚀 Try commands: whoami, skills, projects, theme, help</p>
             <p>🎨 Change themes: theme blue | theme amber | theme purple | theme red</p>

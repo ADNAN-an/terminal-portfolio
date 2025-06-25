@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // Separate types for booting and booted states
 export type BootingState = {
   isBooting: true;
-  stage: 'power-on' | 'system-check' | 'loading';
+  stage: 'power-on' | 'system-check' | 'loading' | 'transition';
   currentLine: number;
   showCursor: boolean;
 };
@@ -36,6 +36,11 @@ const bootSequence = [
   { text: "Initializing Terminal Interface...", delay: 500 },
   { text: "", delay: 200 },
   { text: "Welcome to Portfolio Terminal", delay: 300 },
+  { text: "", delay: 200 },
+  { text: "Starting terminal session...", delay: 400 },
+  { text: "Loading user interface...", delay: 300 },
+  { text: "", delay: 100 },
+  { text: "Terminal ready.", delay: 200 },
 ];
 
 export const useBootAnimation = () => {
@@ -80,7 +85,12 @@ export const useBootAnimation = () => {
         }, cumulativeDelay));
       });
 
-      // Complete boot sequence
+      // Transition stage - prepare for terminal opening
+      timeouts.push(setTimeout(() => {
+        setBootState(prev => ({ ...prev, stage: 'transition' }));
+      }, cumulativeDelay + 500));
+
+      // Complete boot sequence after transition
       timeouts.push(setTimeout(() => {
         setBootState({
           isBooting: false,
@@ -88,7 +98,7 @@ export const useBootAnimation = () => {
           currentLine: bootSequence.length,
           showCursor: false
         });
-      }, cumulativeDelay + 1000));
+      }, cumulativeDelay + 2000)); // Extended time for transition
     };
 
     runBootSequence();
