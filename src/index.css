@@ -139,6 +139,30 @@
   }
 }
 
+@keyframes smooth-fade-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes terminal-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.98) translateY(10px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
 .crt-boot {
   animation: crt-power-on 1.5s ease-out;
 }
@@ -154,6 +178,10 @@
 .terminal-transition {
   animation: screen-glow 1s ease-in-out infinite;
   box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
+}
+
+.terminal-fade-out {
+  animation: smooth-fade-out 1s ease-out forwards;
 }
 
 .boot-text {
@@ -186,19 +214,19 @@
 
 /* Terminal Entrance Animation */
 .terminal-entrance {
-  animation: terminal-entrance 1.5s ease-out;
+  animation: terminal-fade-in 1.2s ease-out;
 }
 
 .terminal-window {
-  animation: terminal-window-slide 1s ease-out 0.5s both;
+  animation: terminal-window-slide 0.8s ease-out 0.3s both;
 }
 
 .terminal-header {
-  animation: terminal-content-fade 0.8s ease-out 1s both;
+  animation: terminal-content-fade 0.6s ease-out 0.8s both;
 }
 
 .terminal-content {
-  animation: terminal-content-fade 1s ease-out 1.2s both;
+  animation: terminal-content-fade 0.8s ease-out 1s both;
 }
 
 .terminal-line {
@@ -206,15 +234,15 @@
 }
 
 .terminal-input {
-  animation: terminal-content-fade 0.8s ease-out 1.5s both;
+  animation: terminal-content-fade 0.6s ease-out 1.2s both;
 }
 
 .terminal-hints {
-  animation: terminal-content-fade 1s ease-out 2s both;
+  animation: terminal-content-fade 0.8s ease-out 1.5s both;
 }
 
 .terminal-button {
-  animation: terminal-content-fade 0.5s ease-out 1.3s both;
+  animation: terminal-content-fade 0.4s ease-out 1s both;
 }
 
 /* Transition Particles */

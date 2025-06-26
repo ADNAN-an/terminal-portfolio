@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 // Separate types for booting and booted states
 export type BootingState = {
   isBooting: true;
-  stage: 'power-on' | 'system-check' | 'loading' | 'transition';
+  stage: 'power-on' | 'system-check' | 'loading' | 'transition' | 'fade-out';
   currentLine: number;
   showCursor: boolean;
 };
@@ -90,7 +90,12 @@ export const useBootAnimation = () => {
         setBootState(prev => ({ ...prev, stage: 'transition' }));
       }, cumulativeDelay + 500));
 
-      // Complete boot sequence after transition
+      // Fade out stage
+      timeouts.push(setTimeout(() => {
+        setBootState(prev => ({ ...prev, stage: 'fade-out' }));
+      }, cumulativeDelay + 2000));
+
+      // Complete boot sequence after fade out
       timeouts.push(setTimeout(() => {
         setBootState({
           isBooting: false,
@@ -98,7 +103,7 @@ export const useBootAnimation = () => {
           currentLine: bootSequence.length,
           showCursor: false
         });
-      }, cumulativeDelay + 2000)); // Extended time for transition
+      }, cumulativeDelay + 3000)); // Extended time for smooth transition
     };
 
     runBootSequence();

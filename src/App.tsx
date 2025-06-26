@@ -7,10 +7,14 @@ function App() {
   const { isBootComplete } = useBootAnimation();
 
   return (
-    <>
+    <div className="relative min-h-screen bg-black">
       <BootScreen />
-      {isBootComplete && <Terminal />}
-    </>
+      {isBootComplete && (
+        <div className="terminal-entrance">
+          <Terminal />
+        </div>
+      )}
+    </div>
   );
 }
 
